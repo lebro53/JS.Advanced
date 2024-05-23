@@ -90,7 +90,7 @@ export default class Shop {
         if (event.target.className == "delete-product-comment") {
           const idComment = event.target.getAttribute("data-button-index");
           product.delProductComment(idComment);
-          commentEl.innerHTML = product.allComments().join("");
+          commentEl.innerHTML = product.allComments();
         }
       });
     });

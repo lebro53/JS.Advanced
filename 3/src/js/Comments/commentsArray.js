@@ -11,9 +11,10 @@ export default class CommentsArray {
     });
     const newComment = new AutorComment(author, text, this.id);
     this.comments.push(newComment);
+    return newComment;
   }
   delComment(comment) {
-    this.comments = this.comments.filter((c) => c.id != comment);
+    return (this.comments = this.comments.filter((c) => c.id != comment));
   }
   allComments() {
     return this.comments.map((c) => c.toHTML());
