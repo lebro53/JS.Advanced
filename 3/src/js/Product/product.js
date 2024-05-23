@@ -12,10 +12,13 @@ export default class Product {
   }
 
   addProductComment(author, text) {
-    const newComment = this.comments.addComment(author, text);
     let commentsForLocalStorage = localStorage.getItem(this.name)
       ? JSON.parse(localStorage.getItem(this.name))
       : [];
+    const commentsID = commentsForLocalStorage.map((comment) => comment.id);
+    console.log(commentsID);
+    const newComment = this.comments.addComment(author, text, commentsID);
+
     commentsForLocalStorage.push(newComment);
     localStorage.setItem(this.name, JSON.stringify(commentsForLocalStorage));
   }
@@ -26,7 +29,6 @@ export default class Product {
     commentsForLocalStorage = commentsForLocalStorage.filter(
       (c) => c.id != comment
     );
-    console.log(commentsForLocalStorage);
     localStorage.setItem(this.name, JSON.stringify(commentsForLocalStorage));
   }
 
@@ -48,18 +50,12 @@ export default class Product {
     let commentsForLocalStorage =
       JSON.parse(localStorage.getItem(this.name)) || [];
     if (
-      commentsForLocalStorage.length === 0 ||
-      localStorage.key(this.name) === null
+      localStorage.key(this.name) !== null &&
+      commentsForLocalStorage.length !== 0
     ) {
-      return ["Комментариев нет и не будет"];
-    } else if (
-      commentsForLocalStorage.length === 0 ||
-      localStorage.key(this.name) === null
-    ) {
-      return ["Комментариев нет и не будет"];
+      return this.commentsToString(commentsForLocalStorage);
     } else {
+      return ["Комментариев нет и не будет"];
     }
-
-    return this.commentsToString(commentsForLocalStorage);
   };
 }

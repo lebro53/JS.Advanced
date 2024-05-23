@@ -5,9 +5,14 @@ export default class CommentsArray {
     this.comments = [];
     this.id = 0;
   }
-  addComment(author, text) {
+  addComment(author, text, commentsID) {
     this.comments.forEach((c) => {
       c.id == this.id ? this.id++ : true;
+    });
+    commentsID.forEach((commentID) => {
+      if (commentID == this.id) {
+        this.id++;
+      }
     });
     const newComment = new AutorComment(author, text, this.id);
     this.comments.push(newComment);

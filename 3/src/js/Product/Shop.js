@@ -78,7 +78,8 @@ export default class Shop {
           preventDefault();
         } else {
           product.addProductComment(inputAuthor.value, TextAreaComment.value);
-          commentEl.innerHTML = product.allComments().join("");
+          const comments = product.allComments();
+          commentEl.innerHTML = comments;
           inputAuthor.style.border = "1px solid #292929";
           TextAreaComment.style.border = "1px solid #292929";
           inputAuthor.value = "";
@@ -90,8 +91,13 @@ export default class Shop {
         if (event.target.className == "delete-product-comment") {
           const idComment = event.target.getAttribute("data-button-index");
           product.delProductComment(idComment);
-          commentEl.innerHTML = product.allComments();
+          const comments = product.allComments();
+          commentEl.innerHTML = comments;
         }
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        const comments = product.allComments();
+        commentEl.innerHTML = comments;
       });
     });
   }
